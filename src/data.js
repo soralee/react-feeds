@@ -10,7 +10,7 @@ const mock_data = [
       name: "bori",
       image: "/images/cat1.jpeg",
     },
-    message: "Introduce to my github!\n\nhere: https://github.com/soralee/react-timeline\n\nCome and see my project! :)"
+    message: "Introduce to my github!\n\nhere: https://github.com/soralee/react-feeds\n\nCome and see my project! :)"
   },
   {
     id: 2,

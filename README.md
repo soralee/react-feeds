@@ -1,1 +1,1 @@
-# react-timeline
+# react-feeds
