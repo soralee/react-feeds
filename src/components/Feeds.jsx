@@ -3,8 +3,9 @@ import { Feed } from 'semantic-ui-react'
 import styled from 'styled-components'
 
 import map from 'lodash/map'
+import toInteger from 'lodash/toInteger'
 
-import {response, getAdvertisementDummyData} from "../data"
+import { response, getAdvertisementDummyData } from "../data"
 
 import Post from "./Post"
 import Advertisement from "./Advertisement"
@@ -16,6 +17,7 @@ const FeedsContainer = styled.div`
   background-color: rgb(247, 247, 250);
   font-family: 'Roboto', Helvetica, sans-serif;
   color: #4A4A4A;
+  width: 70%;
 `;
 
 const { data = [] } = response;
@@ -29,7 +31,7 @@ const Feeds = () => {
           map(data, (props, index) => {
             const { id } = props;
             const showAdvertisement = (index + 1) % ADVERTISEMENT_SHOW_NUMBER === 0
-            const advertisementIndex = (index + 1) / ADVERTISEMENT_SHOW_NUMBER
+            const advertisementIndex = toInteger(index / ADVERTISEMENT_SHOW_NUMBER)
 
             return (
               <React.Fragment key={id}>

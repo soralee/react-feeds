@@ -1,18 +1,16 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import styled from 'styled-components'
-import handleViewport from 'react-in-viewport';
+import handleViewport from 'react-in-viewport'
 
-import get from 'lodash/fp/get'; 
-import flow from 'lodash/fp/flow'; 
+import get from 'lodash/fp/get' 
+import flow from 'lodash/fp/flow' 
 
 const VideoContents = styled.div`
-  width: 100%;
   height: 100%;
-  padding: 40px;
+  margin: 40px 0;
 `;
 
 const Video = styled.div`
-  width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -20,36 +18,51 @@ const Video = styled.div`
 
   video {
     width: 100%;
+    z-index: 1;
   }
 `;
 
-const Block = ({ inViewport, forwardedRef, url }) => {
-  const playVideo = () => flow(
+const LogCollectArea = styled.div`
+  width: 100%;
+  height: 10%;
+  position: absolute;
+  visibility: hidden;
+`;
+
+const Block = ({
+  inViewport,
+  forwardedRef,
+  url,
+}) => {
+  let videoRef = useRef(null);
+
+  const playVideo = (targetRef) => flow(
     get("current"),
     current => current.play()
-  )(forwardedRef);
+  )(targetRef);
 
-  const pauseVideo = () => flow(
+  const pauseVideo = (targetRef) => flow(
     get("current"),
     current => current.pause()
-  )(forwardedRef);
-  
-  if (get("current.play", forwardedRef)) {
-    inViewport ? playVideo() : pauseVideo()
+  )(targetRef);
+
+  if (get("current.play", videoRef)) {
+    inViewport ? playVideo(videoRef) : pauseVideo(videoRef)
   }
 
   return (
-     <VideoContents>
-       <Video>
+    <VideoContents>
+      <Video>
         <video
-          ref={forwardedRef}
+          ref={videoRef}
           src={url}
           controls
           muted
         />
+        <LogCollectArea ref={forwardedRef} />
       </Video>
-     </VideoContents>
-  );
+    </VideoContents>
+ );
 };
 
 const ViewportVideo = handleViewport(Block);

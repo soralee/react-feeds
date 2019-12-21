@@ -1,5 +1,5 @@
 import React from 'react'
-import { Feed } from 'semantic-ui-react'
+import { Feed, Segment } from 'semantic-ui-react'
 import styled from 'styled-components'
 
 import feedTypes from "../util/feedTypes"
@@ -8,7 +8,7 @@ import Avatar from "./reusable/Avatar"
 import Summary from "./reusable/Summary"
 import TextSection from "./reusable/TextBox"
 import URLPreview from "./reusable/URLPreview"
-import ImageSection from "./reusable/Image"
+import Images from "./reusable/Image"
 import Player from "./reusable/Player"
 
 const FeedContainer = styled.div`
@@ -17,12 +17,18 @@ const FeedContainer = styled.div`
   width: 100%;
 `;
 
-const Contents = styled.div`
-  border: 1px solid rgb(232, 232, 236);
-  border-radius: 6px;
-  padding: 20px;
-  background-color: white;
-  width: 100%;
+/* 
+  overwrite style isse
+  https://github.com/styled-components/styled-components/issues/501#issuecomment-279954075
+*/
+const Contents = styled(Segment)`
+  &&& {
+    border: 1px solid rgb(232, 232, 236);
+    border-radius: 6px;
+    padding: 20px;
+    background-color: white;
+    width: 100%;
+  }
 `;
 
 const Feeds = ({ 
@@ -47,7 +53,7 @@ const Feeds = ({
                 <TextSection message={message} />
                 {type === feedTypes.share && (<URLPreview message={message} />)}
                 {type === feedTypes.image && (
-                  <ImageSection
+                  <Images
                     images={images}
                     message={message}
                     headerChildren={<Summary />}

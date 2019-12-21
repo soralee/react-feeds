@@ -15,12 +15,20 @@ const Date = styled.div`
   margin-left: 10px;
 `;
 
-const Summary = ({ created_at, name }) => (
-  <Feed.Summary
-    date={<Date>{moment(created_at).fromNow()}</Date>}
-    user={<OwnerName>{name}</OwnerName>}
-    style={{ display: "flex" }}
-  />
+const Privacy = styled.div`
+  color: #606770;
+  font-size: 12px;
+`;
+
+const Summary = ({ created_at, name, privacy }) => (
+  <>
+    <Feed.Summary
+      date={created_at && <Date>{moment(created_at).fromNow()}</Date>}
+      user={name && <OwnerName>{name}</OwnerName>}
+      style={{ display: "flex" }}
+    />
+    {privacy && <Privacy>{privacy}</Privacy>}
+  </>
 )
 
 export default Summary;

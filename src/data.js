@@ -35,14 +35,10 @@ const mock_data = [
     images: [
       {
         id: "image-1",
-        url: "/images/cat1.jpeg"
-      },
-      {
-        id: "image-2",
         url: "/images/soraman-bori.png"
       },
       {
-        id: "image-3",
+        id: "image-2",
         url: "/images/cat-developers.jpg"
       }
     ]
@@ -60,13 +56,19 @@ const mock_data = [
   },
   {
     id: 5,
-    type: feedTypes.share,
+    type: feedTypes.image,
     created_at: 1464231447907,
     owner: {
       name: "bori",
       image: "/images/cat1.jpeg",
     },
-    message: "yoyo"
+    message: "yoyo",
+    images: [
+      {
+        id: "matthew-1",
+        url: "https://react.semantic-ui.com/images/avatar/large/matthew.png"
+      }
+    ]
   },
 ]
 
@@ -76,18 +78,15 @@ const mock_advertisement = {
     privacy: "Sponsored",
     created_at: 1464231447907,
     owner: {
-      name: "bori",
-      image: "/images/cat1.jpeg",
+      name: "Cat world",
+      image: "/images/soraman-bori.png",
     },
     message: "She is a famous cat!",
+    ad_message: "We have more cute and awesome pictures :)",
     images: [
       {
         id: "image-1",
         url: "/images/cat1.jpeg"
-      },
-      {
-        id: "image-2",
-        url: "/images/soraman-bori.png"
       },
     ]
   },
@@ -96,10 +95,11 @@ const mock_advertisement = {
     privacy: "Sponsored",
     created_at: 1464231447907,
     owner: {
-      name: "bori",
-      image: "/images/cat1.jpeg",
+      name: "Movie world",
+      image: "https://react.semantic-ui.com/images/avatar/small/elliot.jpg",
     },
     message: "The best movie in this year!",
+    ad_message: "WE have more vedios! click me if you want ;)",
     video: "http://media.w3.org/2010/05/sintel/trailer.mp4",
   }
 }

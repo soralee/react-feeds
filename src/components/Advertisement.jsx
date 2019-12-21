@@ -1,6 +1,10 @@
-import React from 'react'
-import { Feed } from 'semantic-ui-react'
+import React, { useState, Children } from 'react'
+import { Segment, Icon, Label, Button, Feed } from 'semantic-ui-react'
 import styled from 'styled-components'
+import handleViewport from 'react-in-viewport'
+
+import includes from "lodash/includes"
+import noop from 'lodash/noop'
 
 import feedTypes from "../util/feedTypes"
 
@@ -17,13 +21,39 @@ const FeedContainer = styled.div`
   width: 100%;
 `;
 
-const Contents = styled.div`
-  border: 1px solid rgb(232, 232, 236);
-  border-radius: 6px;
-  padding: 20px;
-  background-color: lavender;
-  width: 100%;
+/* 
+  overwrite style isse
+  https://github.com/styled-components/styled-components/issues/501#issuecomment-279954075
+*/
+const Contents = styled(Segment)`
+  &&& {
+    border: 1px solid rgb(232, 232, 236);
+    padding: 20px;
+    background-color: white;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+  }
 `;
+
+const LogCollectBlock= ({
+  inViewport,
+  forwardedRef,
+  enterCount,
+  onAddLogCollection = noop,
+  children
+}) => {
+  if (inViewport && enterCount === 1) {
+    onAddLogCollection();
+  }
+
+  return (
+    <div ref={forwardedRef}>
+      {children}
+    </div>
+ );
+};
+
+const ViewportArea = handleViewport(LogCollectBlock);
 
 const Advertisement = ({ 
   id,
@@ -32,38 +62,49 @@ const Advertisement = ({
   owner = {},
   created_at,
   message,
+  ad_message,
   images = [],
   video,
  }) => {
+  const [logCollection, setLogCollection] = useState([]);
+
+  const pushLogCollection = () => {
+    if (!includes(logCollection, id)) {
+      console.log(`Collected ownerName:"${name}" log successfully!`)
+      setLogCollection([...logCollection, id])
+    }
+  }
   const { name, image } = owner;
   return (
     <Feed.Event>
       <FeedContainer>
         <Avatar image={image} />
-        <Contents>
-            <Summary created_at={created_at} name={name} />
+        <div style={{ width: "100%" }}>
+          <Contents attached color='teal'>
+            <Label attached='top right' color='teal'>Advertisement</Label>
+            <Summary created_at={created_at} name={name} privacy={privacy} />
             <Feed.Extra>
-              <div>
+              <ViewportArea onAddLogCollection={() => pushLogCollection()}>
                 <TextSection message={message} />
                 {type === feedTypes.share && (<URLPreview message={message} />)}
                 {type === feedTypes.image && (
                   <ImageSection
                     images={images}
-                    message={message}
-                    headerChildren={<Summary />}
+                    
+                    isLogCollectMode
                   />
                 )}
                 {type === feedTypes.video && <Player video={video} />}
-              </div>
+              </ViewportArea>
             </Feed.Extra>
-            {
-              // <Feed.Meta>
-              //   <Feed.Like>
-              //     <Icon name='like' />5 Likes
-              //   </Feed.Like>
-              // </Feed.Meta>
-            }
-        </Contents>
+          </Contents>
+          <Button.Group attached='bottom'>
+            <Button fluid icon size='small' labelPosition='right'>
+              {ad_message}
+              <Icon name='arrow right' />
+            </Button>
+          </Button.Group>
+        </div>
       </FeedContainer>
     </Feed.Event>
   )
