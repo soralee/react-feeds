@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import handleViewport from 'react-in-viewport';
 
-import map from 'lodash/map'; 
 import get from 'lodash/fp/get'; 
 import flow from 'lodash/fp/flow'; 
 
@@ -18,9 +17,13 @@ const Video = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  video {
+    width: 100%;
+  }
 `;
 
-const Block = ({ inViewport, forwardedRef, id, url }) => {
+const Block = ({ inViewport, forwardedRef, url }) => {
   const playVideo = () => flow(
     get("current"),
     current => current.play()
@@ -40,7 +43,6 @@ const Block = ({ inViewport, forwardedRef, id, url }) => {
        <Video>
         <video
           ref={forwardedRef}
-          key={id}
           src={url}
           controls
           muted
@@ -52,14 +54,8 @@ const Block = ({ inViewport, forwardedRef, id, url }) => {
 
 const ViewportVideo = handleViewport(Block);
 
-const Player = ({ videos }) => {
-  return (
-    map(videos, ({ url, id }) => (
-      <ViewportVideo
-        url={url}
-        key={id}
-    />
-    ))
-  )
-}
+const Player = ({ video }) => (
+  <ViewportVideo url={video} />
+)
+
 export default Player;

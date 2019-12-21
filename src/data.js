@@ -1,4 +1,5 @@
 import map from 'lodash/map'; 
+import keys from 'lodash/keys'; 
 import feedTypes from "./util/feedTypes";
 
 const mock_data = [
@@ -55,20 +56,67 @@ const mock_data = [
       image: "/images/cat1.jpeg",
     },
     message: "Stay tuned!",
-    videos: [
-      {
-        id: "video-2",
-        url: "http://media.w3.org/2010/05/bunny/movie.mp4"
-      },
-    ]
+    video: "http://media.w3.org/2010/05/bunny/movie.mp4"
+  },
+  {
+    id: 5,
+    type: feedTypes.share,
+    created_at: 1464231447907,
+    owner: {
+      name: "bori",
+      image: "/images/cat1.jpeg",
+    },
+    message: "yoyo"
   },
 ]
 
+const mock_advertisement = {
+  1: {
+    type: feedTypes.image,
+    privacy: "Sponsored",
+    created_at: 1464231447907,
+    owner: {
+      name: "bori",
+      image: "/images/cat1.jpeg",
+    },
+    message: "She is a famous cat!",
+    images: [
+      {
+        id: "image-1",
+        url: "/images/cat1.jpeg"
+      },
+      {
+        id: "image-2",
+        url: "/images/soraman-bori.png"
+      },
+    ]
+  },
+  2: {
+    type: feedTypes.video,
+    privacy: "Sponsored",
+    created_at: 1464231447907,
+    owner: {
+      name: "bori",
+      image: "/images/cat1.jpeg",
+    },
+    message: "The best movie in this year!",
+    video: "http://media.w3.org/2010/05/sintel/trailer.mp4",
+  }
+}
+
 const getDummyData = () => (
-  map(Array(8), (_, id) => ({ ...mock_data[id % 4], id }))
+  map(Array(10), (_, id) => ({ ...mock_data[id % 5], id }))
 )
 
-const response = {
+export const getAdvertisementDummyData = () => {
+  const keyList = keys(mock_advertisement);
+
+  return map(Array(10), (_, id) => {
+    const objectKey = keyList[id % 2];
+    return ({ ...mock_advertisement[objectKey], id })
+  })
+}
+
+export const response = {
   data: getDummyData(),
 }
-export default response;
