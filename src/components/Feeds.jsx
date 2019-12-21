@@ -2,12 +2,15 @@ import React from 'react'
 import { Feed, Image, Modal } from 'semantic-ui-react'
 import { ReactTinyLink } from 'react-tiny-link' // For rich link previews
 import styled from 'styled-components'
-import Linkify from 'react-linkify';
-import moment from "moment";
-import map from 'lodash/map'; 
+import Linkify from 'react-linkify'
+import moment from "moment"
 
-import response from "../data";
-import feedTypes from "../util/feedTypes";
+import map from 'lodash/map'
+
+import response from "../data"
+import feedTypes from "../util/feedTypes"
+
+import Player from "./Player"
 
 const FeedsContainer = styled.div`
   padding: 50px;
@@ -38,7 +41,7 @@ const TextBox = styled.div`
   width: 100%;
   resize: vertical;
   padding: 7px;
-  min-height: 100px;
+  min-height: auto;
   white-space: pre-wrap;
   min-width: 800px;
 `;
@@ -72,8 +75,6 @@ const URLContents = ({ message }) => {
       key={index}
       url={url}
       cardSize="small"
-      maxLine={2}
-      minLine={1}
       showGraphic
     />
   ))
@@ -100,13 +101,21 @@ const ImageContents = ({ images, message, headerChildren }) => {
 }
 
 const { data = [] } = response;
+
 const Feeds = () => {
   return (
     <FeedsContainer>
       <Feed>
         {
           map(data, ({
-            id, type, privacy, owner = {}, created_at, message, images
+            id,
+            type,
+            privacy,
+            owner = {},
+            created_at,
+            message,
+            images = [],
+            videos = [],
           }) => {
             const { name, image } = owner;
             const Summary = () => (
@@ -135,6 +144,7 @@ const Feeds = () => {
                               headerChildren={<Summary />}
                             />
                           )}
+                          {type === feedTypes.video && <Player videos={videos} />}
                         </div>
                       </Feed.Extra>
                       {
