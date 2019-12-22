@@ -34,11 +34,21 @@ const Block = ({
   forwardedRef,
   url,
 }) => {
-  let videoRef = useRef(null);
+  const videoRef = useRef(null);
 
   const playVideo = (targetRef) => flow(
     get("current"),
-    current => current.play()
+    /*
+      React error when using audio.play() function 
+      https://developers.google.com/web/updates/2017/06/play-request-was-interrupted
+    */
+    current => {
+      const playPromise = current.play()
+
+      if (playPromise) {
+        playPromise.catch(error => console.log(error))
+      }
+    }
   )(targetRef);
 
   const pauseVideo = (targetRef) => flow(

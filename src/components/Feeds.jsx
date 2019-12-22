@@ -11,8 +11,6 @@ import map from 'lodash/fp/map'
 import flow from 'lodash/fp/flow'
 import concat from 'lodash/fp/concat'
 
-import Avatar from "./reusable/Avatar"
-
 import {
   getPostDummyData,
   getAdvertisementDummyData,
@@ -50,7 +48,7 @@ const Loader = styled(Segment)`
   }
 `;
 
-const INCREASE_ITEM_SIZE = 10
+const INCREASE_ITEM_SIZE = 20
 const uncappedMap = map.convert({ cap: false });
 
 const Feeds = () => {
