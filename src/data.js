@@ -2,9 +2,9 @@ import map from 'lodash/map';
 import keys from 'lodash/keys'; 
 import feedTypes from "./util/feedTypes";
 
-const mock_data = [
-  {
-    id: 1,
+export const mock_post_data = {
+  0: {
+    id: 0,
     type: feedTypes.share,
     created_at: 1464231447907,
     owner: {
@@ -13,8 +13,8 @@ const mock_data = [
     },
     message: "Hi there :)"
   },
-  {
-    id: 2,
+  1: {
+    id: 1,
     type: feedTypes.share,
     created_at: 1464231447907,
     owner: {
@@ -23,8 +23,8 @@ const mock_data = [
     },
     message: "Introduce to my github!\n\nhere: https://github.com/soralee/react-feeds\n\nCome and see my project! :)"
   },
-  {
-    id: 3,
+  2: {
+    id: 2,
     type: feedTypes.image,
     created_at: 1464231447907,
     owner: {
@@ -43,8 +43,8 @@ const mock_data = [
       }
     ]
   },
-  {
-    id: 4,
+  3: {
+    id: 3,
     type: feedTypes.video,
     created_at: 1464231447907,
     owner: {
@@ -54,8 +54,8 @@ const mock_data = [
     message: "Stay tuned!",
     video: "http://media.w3.org/2010/05/bunny/movie.mp4"
   },
-  {
-    id: 5,
+  4: {
+    id: 4,
     type: feedTypes.image,
     created_at: 1464231447907,
     owner: {
@@ -70,10 +70,10 @@ const mock_data = [
       }
     ]
   },
-]
+}
 
-const mock_advertisement = {
-  1: {
+export const mock_advertisement = {
+  0: {
     type: feedTypes.image,
     privacy: "Sponsored",
     created_at: 1464231447907,
@@ -90,7 +90,7 @@ const mock_advertisement = {
       },
     ]
   },
-  2: {
+  1: {
     type: feedTypes.video,
     privacy: "Sponsored",
     created_at: 1464231447907,
@@ -104,19 +104,20 @@ const mock_advertisement = {
   }
 }
 
-const getDummyData = () => (
-  map(Array(10), (_, id) => ({ ...mock_data[id % 5], id }))
-)
+export const getPostDummyData = () => {
+  const keyList = keys(mock_post_data)
+
+  return map(Array(10), (_, id) => {
+    const objectKey = keyList[id % 5];
+    return ({ ...mock_post_data[objectKey], id })
+  })
+}
 
 export const getAdvertisementDummyData = () => {
-  const keyList = keys(mock_advertisement);
+  const keyList = keys(mock_advertisement)
 
   return map(Array(10), (_, id) => {
     const objectKey = keyList[id % 2];
     return ({ ...mock_advertisement[objectKey], id })
   })
-}
-
-export const response = {
-  data: getDummyData(),
 }

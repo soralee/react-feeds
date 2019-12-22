@@ -1,4 +1,4 @@
-import React, { useState, Children } from 'react'
+import React, { useState } from 'react'
 import { Segment, Icon, Label, Button, Feed } from 'semantic-ui-react'
 import styled from 'styled-components'
 import handleViewport from 'react-in-viewport'
@@ -35,7 +35,7 @@ const Contents = styled(Segment)`
   }
 `;
 
-const LogCollectBlock= ({
+const LogCollectBlock = ({
   inViewport,
   forwardedRef,
   enterCount,
@@ -90,7 +90,6 @@ const Advertisement = ({
                 {type === feedTypes.image && (
                   <ImageSection
                     images={images}
-                    
                     isLogCollectMode
                   />
                 )}
@@ -99,7 +98,7 @@ const Advertisement = ({
             </Feed.Extra>
           </Contents>
           <Button.Group attached='bottom'>
-            <Button fluid icon size='small' labelPosition='right'>
+            <Button color='teal' fluid icon size='small' labelPosition='right'>
               {ad_message}
               <Icon name='arrow right' />
             </Button>
