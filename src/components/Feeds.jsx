@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { Segment, Feed, Image } from 'semantic-ui-react'
 import styled from 'styled-components'
-import InfiniteScroll from 'react-infinite-scroller';
+import InfiniteScroll from 'react-infinite-scroller'
+import axios from 'axios'
 
 import toInteger from 'lodash/toInteger'
 import keys from 'lodash/keys'
@@ -10,13 +11,12 @@ import size from 'lodash/size'
 import map from 'lodash/fp/map'
 import flow from 'lodash/fp/flow'
 import concat from 'lodash/fp/concat'
+import get from 'lodash/fp/get'
 
-import {
-  getPostDummyData,
-  getAdvertisementDummyData,
-  mock_post_data,
-  mock_advertisement
-} from "../data"
+import { formatData } from "../util/util"
+
+import mock_post_data from "../data/post.json"
+import mock_advertisement from "../data/advertisement.json"
 
 import Post from "./Post"
 import Advertisement from "./Advertisement"
@@ -51,10 +51,56 @@ const Loader = styled(Segment)`
 const INCREASE_ITEM_SIZE = 20
 const uncappedMap = map.convert({ cap: false });
 
+const useGetApi = () => {
+  const [postData, setPostData] = useState([])
+  const [advertisementData, setAdvertisementData] = useState([])
+  const [isInitialized, setInitialized] = useState(false)
+  useEffect(() => {
+    if (!isInitialized) {
+      axios.get("/data/post.json")
+      .then(
+        (result) => {
+
+        flow(
+          get("data"),
+          formatData,
+          setPostData
+        )(result)
+      },
+        (error) => {
+          console.log("fetch advertisement api error", error)
+        }
+      )
+
+      axios.get("../data/advertisement.json")
+      .then(
+        (result) => {
+          flow(
+            get("data"),
+            formatData,
+            setAdvertisementData
+          )(result)
+        },
+        (error) => {
+          console.log("fetch advertisement api error", error)
+        }
+      )
+      setInitialized(true)
+    }
+  }, [isInitialized])
+  return { postData, setPostData, advertisementData, setAdvertisementData }
+}
+
+const getData = ({ currentData, newData }) => uncappedMap((_, id) => {
+  const keyList = keys(newData)
+  const keySize = size(keyList)
+  const objectKey = keyList[id % keySize];
+  return ({ ...newData[objectKey], id: (size(currentData) + id) })
+})
+
 const Feeds = () => {
-  const [postData, setPostData] = useState(getPostDummyData())
-  const [advertisementData, setAdvertisementData] = useState(getAdvertisementDummyData())
-  const [isFetchLoading, setFetchLoading] = useState(false)
+  const  { postData, setPostData, advertisementData, setAdvertisementData } = useGetApi()
+  const [isFetchLoading, setFetchLoading] = useState([])
 
   const fetchData = useCallback((_page) => {
     if (isFetchLoading) {
@@ -63,30 +109,20 @@ const Feeds = () => {
       const fetchedAdvertisementData = mock_advertisement;
 
       flow(
-        uncappedMap((_, id) => {
-          const keyList = keys(fetchedPostData)
-          const keySize = size(keyList)
-          const objectKey = keyList[id % keySize];
-          return ({ ...fetchedPostData[objectKey], id: (size(postData) + id) })
-        }),
+        getData({ newData: fetchedPostData, currentData: postData }),
         concat(postData),
         setPostData
       )(Array(INCREASE_ITEM_SIZE))
 
       flow(
-        uncappedMap((_, id) => {
-          const keyList = keys(fetchedAdvertisementData)
-          const keySize = size(keyList)
-          const objectKey = keyList[id % keySize];
-          return ({ ...fetchedAdvertisementData[objectKey], id: (size(advertisementData) + id) })
-        }),
+        getData({ newData: fetchedAdvertisementData, currentData: advertisementData }),
         concat(advertisementData),
         setAdvertisementData
       )(Array(INCREASE_ITEM_SIZE))
 
       setFetchLoading(false)
     }
-  }, [isFetchLoading, postData, advertisementData])
+  }, [isFetchLoading, postData, setPostData, advertisementData, setAdvertisementData])
 
   useEffect(() => {
     const interval = setInterval(fetchData, 2000);

@@ -1,0 +1,31 @@
+{
+  "0": {
+    "type": "IMAGE",
+    "privacy": "Sponsored",
+    "created_at": 1464231447907,
+    "owner": {
+      "name": "Cat world",
+      "image": "/images/soraman-bori.png"
+    },
+    "message": "She is a famous cat!",
+    "ad_message": "We have more cute and awesome pictures :)",
+    "images": [
+      {
+        "id": "image-1",
+        "url": "/images/cat1.jpeg"
+      }
+    ]
+  },
+  "1": {
+    "type": "VIDEO",
+    "privacy": "Sponsored",
+    "created_at": 1464231447907,
+    "owner": {
+      "name": "Movie world",
+      "image": "https://react.semantic-ui.com/images/avatar/small/elliot.jpg"
+    },
+    "message": "The best movie in this year!",
+    "ad_message": "WE have more vedios! click me if you want ;)",
+    "video": "http://media.w3.org/2010/05/sintel/trailer.mp4"
+  }
+}

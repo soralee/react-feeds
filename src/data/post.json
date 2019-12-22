@@ -1,0 +1,70 @@
+{
+  "0": {
+    "id": 0,
+    "type": "SHARE",
+    "created_at": 1464231447907,
+    "owner": {
+      "name": "bori",
+      "image": "/images/cat1.jpeg"
+    },
+    "message": "Hi there :)"
+  },
+  "1": {
+    "id": 1,
+    "type": "SHARE",
+    "created_at": 1464231447907,
+    "owner": {
+      "name": "bori",
+      "image": "/images/cat1.jpeg"
+    },
+    "message": "Introduce to my github!\n\nhere: https://github.com/soralee/react-feeds\n\nCome and see my project! :)"
+  },
+  "2": {
+    "id": 2,
+    "type": "IMAGE",
+    "created_at": 1464231447907,
+    "owner": {
+      "name": "bori",
+      "image": "/images/cat1.jpeg"
+    },
+    "message": "Welcome to Cat world!",
+    "images": [
+      {
+        "id": "image-1",
+        "url": "/images/soraman-bori.png"
+      },
+      {
+        "id": "image-2",
+        "url": "/images/cat-developers.jpg"
+      }
+    ]
+  },
+  "3": {
+    "id": 3,
+    "type": "VIDEO",
+    "created_at": 1464231447907,
+    "owner": {
+      "name": "bori",
+      "image": "/images/cat1.jpeg"
+    },
+    "message": "Stay tuned!",
+    "video": "http://media.w3.org/2010/05/bunny/movie.mp4"
+  },
+  "4": {
+    "id": 4,
+    "type": "IMAGE",
+    "created_at": 1464231447907,
+    "owner": {
+      "name": "bori",
+      "image": "/images/cat1.jpeg"
+    },
+    "message": "yoyo",
+    "images": [
+      {
+        "id": "matthew-1",
+        "url": "https://react.semantic-ui.com/images/avatar/large/matthew.png"
+      }
+    ]
+  }
+}
+
