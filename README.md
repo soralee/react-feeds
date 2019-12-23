@@ -1,37 +1,23 @@
-## Welcome to GitHub Pages
+## 1. Project
+- 글, 미디어, 광고 컨텐츠가 포함된 타임라인
+- [Demo](https://react-feed-338b2.web.app/)
 
-You can use the [editor on GitHub](https://github.com/soralee/react-feeds/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+## 2. Project
+### 기본
+- 글, 미디어가 포함된 타임라인
+- 타임라인의 이미지는 여러장이 있을 수 있으며 클릭하면 확대 가능
+- 타임라인의 동영상은 절반 정도의 동영상이 화면에 노출되었을 경우 자동으로 재생
+- 스크롤 시 더 많은 컨텐츠를 볼 수 있음
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### 광고
+- 다섯번의 타임라인 당 광고 타임라인 노출
+- 한 장의 이미지 또는 한 개의 동영상이 포함
+- 동영상은 절반 정도의 화면이 노출되었을 경우 자동으로 재생
+- Feed의 하단부분은 광고의 링크가 연결 되어 있습니다
+- 화면 영역에 광고가 노출되었을 때 뷰 로그를 수집하며 refresh를 하지 않는 한 화면 내에서 동일 광고에 대해 단 한번의 로그만 수집(console로 확인 가능)
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
+## 3. Getting started
+dev server를 command로 실행 한 후 `http://localhost:3000/` 접속
 ```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+$ npm run start
 ```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/soralee/react-feeds/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
