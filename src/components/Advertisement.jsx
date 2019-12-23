@@ -97,12 +97,14 @@ const Advertisement = ({
               </ViewportArea>
             </Feed.Extra>
           </Contents>
-          <Button.Group attached='bottom'>
-            <Button color='teal' fluid icon size='small' labelPosition='right'>
-              {ad_message}
-              <Icon name='arrow right' />
-            </Button>
-          </Button.Group>
+          <a href="." target="_blank" rel="noopener noreferrer">
+            <Button.Group attached='bottom'>
+              <Button color='teal' fluid icon size='small' labelPosition='right'>
+                {ad_message}
+                <Icon name='arrow right' />
+              </Button>
+            </Button.Group>
+          </a>
         </div>
       </FeedContainer>
     </Feed.Event>
