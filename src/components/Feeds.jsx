@@ -23,19 +23,23 @@ import Advertisement from "./Advertisement"
 
 const ADVERTISEMENT_SHOW_NUMBER = 5
 
-const FeedsContainer = styled.div`
-  padding: 50px;
+const AppContainer = styled.div`
   background-color: rgb(247, 247, 250);
   font-family: 'Roboto', Helvetica, sans-serif;
   color: #4A4A4A;
+  width: 100%;
+`;
+
+const FeedsContainer = styled.div`
+  padding: 50px;
   width: 70%;
 `;
 
 const LoaderContainer = styled.div`
   width: 100%;
   display: flex;
-  margin-left: 80px;
-  padding: 10px;
+  padding: 50px;
+  margin-left: 40px;
 `;
 
 const Loader = styled(Segment)`
@@ -45,6 +49,11 @@ const Loader = styled(Segment)`
     background-color: white;
     border-top-right-radius: 6px;
     border-top-left-radius: 6px;
+    width: 100%;
+
+    img {
+      width: 100%;
+    }
   }
 `;
 
@@ -125,44 +134,46 @@ const Feeds = () => {
   }, [isFetchLoading, postData, setPostData, advertisementData, setAdvertisementData])
 
   useEffect(() => {
-    const interval = setInterval(fetchData, 2000);
+    const interval = setInterval(fetchData, 100);
     return () => clearInterval(interval);
   }, [isFetchLoading, fetchData]);
 
   return (
-    <FeedsContainer>
-      <Feed>
-        <InfiniteScroll
-          pageStart={0}
-          loadMore={() => setFetchLoading(true)}
-          hasMore
-          loader={
-            <Feed.Event key="loader-1">
-              <LoaderContainer>
-                <Loader loading>
-                  <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
-                </Loader>
-              </LoaderContainer>
-            </Feed.Event>
-          }
-        >
-          {
-            uncappedMap((props, index) => {
-              const { id } = props;
-              const showAdvertisement = ((index + 1) % ADVERTISEMENT_SHOW_NUMBER === 0)
-              const advertisementIndex = toInteger(index / ADVERTISEMENT_SHOW_NUMBER)
+    <AppContainer>
+      <FeedsContainer>
+        <Feed>
+          <InfiniteScroll
+            pageStart={0}
+            loadMore={() => setFetchLoading(true)}
+            hasMore
+            loader={
+              <Feed.Event key="loader-1">
+                <LoaderContainer>
+                  <Loader loading>
+                    <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
+                  </Loader>
+                </LoaderContainer>
+              </Feed.Event>
+            }
+          >
+            {
+              uncappedMap((props, index) => {
+                const { id } = props;
+                const showAdvertisement = ((index + 1) % ADVERTISEMENT_SHOW_NUMBER === 0)
+                const advertisementIndex = toInteger(index / ADVERTISEMENT_SHOW_NUMBER)
 
-              return (
-                <React.Fragment key={id}>
-                  <Post {...props} />
-                  {showAdvertisement && <Advertisement {...advertisementData[advertisementIndex]} />}
-                </React.Fragment>
-              )
-            }, postData)
-          }
-        </InfiniteScroll>
-      </Feed>
-    </FeedsContainer>
+                return (
+                  <React.Fragment key={id}>
+                    <Post {...props} />
+                    {showAdvertisement && <Advertisement {...advertisementData[advertisementIndex]} />}
+                  </React.Fragment>
+                )
+              }, postData)
+            }
+          </InfiniteScroll>
+        </Feed>
+      </FeedsContainer>
+    </AppContainer>
   )
 }
 
