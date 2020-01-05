@@ -1,6 +1,7 @@
 import React from 'react'
 import { Feed, Segment } from 'semantic-ui-react'
-import styled from 'styled-components'
+import Styled from 'styled-components'
+import PropTypes from 'prop-types'
 
 import feedTypes from "../util/feedTypes"
 
@@ -11,17 +12,17 @@ import URLPreview from "./reusable/URLPreview"
 import Images from "./reusable/Image"
 import Player from "./reusable/Player"
 
-const FeedContainer = styled.div`
+const FeedContainer = Styled.div`
   display: flex;
   padding: 10px;
   width: 100%;
 `;
 
 /* 
-  overwrite style isse
+  overwrite style issue
   https://github.com/styled-components/styled-components/issues/501#issuecomment-279954075
 */
-const Contents = styled(Segment)`
+const Contents = Styled(Segment)`
   &&& {
     border: 1px solid rgb(232, 232, 236);
     border-radius: 6px;
@@ -31,10 +32,8 @@ const Contents = styled(Segment)`
   }
 `;
 
-const Feeds = ({ 
-  id,
+const Post = ({ 
   type,
-  privacy,
   owner = {},
   created_at,
   message,
@@ -75,4 +74,28 @@ const Feeds = ({
   )
 }
 
-export default Feeds;
+Post.propTypes = {
+  type: PropTypes.string,
+  owner: PropTypes.shape({
+    name: PropTypes.string,
+    image: PropTypes.string
+  }),
+  created_at: PropTypes.number,
+  message: PropTypes.string,
+  images: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    url: PropTypes.string
+  })),
+  video: PropTypes.string
+};
+
+Post.defaultProps = {
+  type: null,
+  owner: {},
+  created_at: null,
+  message: null,
+  images: [],
+  video: null
+};
+
+export default Post;

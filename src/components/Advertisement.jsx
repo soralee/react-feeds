@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Segment, Icon, Label, Button, Feed } from 'semantic-ui-react'
-import styled from 'styled-components'
+import Styled from 'styled-components'
 import handleViewport from 'react-in-viewport'
+import PropTypes from 'prop-types'
 
 import includes from "lodash/includes"
 import noop from 'lodash/noop'
@@ -15,17 +16,17 @@ import URLPreview from "./reusable/URLPreview"
 import ImageSection from "./reusable/Image"
 import Player from "./reusable/Player"
 
-const FeedContainer = styled.div`
+const FeedContainer = Styled.div`
   display: flex;
   padding: 10px;
   width: 100%;
 `;
 
 /* 
-  overwrite style isse
+  overwrite style issue
   https://github.com/styled-components/styled-components/issues/501#issuecomment-279954075
 */
-const Contents = styled(Segment)`
+const Contents = Styled(Segment)`
   &&& {
     border: 1px solid rgb(232, 232, 236);
     padding: 20px;
@@ -110,5 +111,36 @@ const Advertisement = ({
     </Feed.Event>
   )
 }
+
+Advertisement.propTypes = {
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  type: PropTypes.string,
+  privacy: PropTypes.string,
+  owner: PropTypes.shape({
+    name: PropTypes.string,
+    image: PropTypes.string
+  }),
+  created_at: PropTypes.number,
+  message: PropTypes.string,
+  ad_message: PropTypes.string,
+  images: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    url: PropTypes.string
+  })),
+  video: PropTypes.string
+};
+
+Advertisement.defaultProps = {
+  id: null,
+  type: null,
+  privacy: null,
+  owner: {},
+  created_at: null,
+  message: null,
+  ad_message: null,
+  images: [],
+  video: null
+};
+
 
 export default Advertisement;

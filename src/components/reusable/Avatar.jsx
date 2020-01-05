@@ -1,7 +1,8 @@
 import React from 'react'
-import styled from 'styled-components'
+import Styled from 'styled-components'
+import PropTypes from 'prop-types'
 
-const StyledImage = styled.div`
+const StyledImage = Styled.div`
   padding: 20px;
 
   img {
@@ -18,5 +19,13 @@ const Avatar = ({ image }) => (
     <img src={image} alt="" />
   </StyledImage>
 )
+
+Avatar.propTypes = {
+  image: PropTypes.string
+};
+
+Avatar.defaultProps = {
+  image: null
+};
 
 export default Avatar;

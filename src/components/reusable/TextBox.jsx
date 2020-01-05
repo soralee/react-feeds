@@ -1,8 +1,9 @@
 import React from 'react'
-import styled from 'styled-components'
+import Styled from 'styled-components'
 import Linkify from 'react-linkify'
+import PropTypes from 'prop-types'
 
-const Text = styled.div`
+const Text = Styled.div`
   width: 100%;
   resize: vertical;
   padding: 7px;
@@ -16,5 +17,13 @@ const TextBox = ({ message }) => (
     <Linkify>{message}</Linkify>
   </Text>
 )
+
+TextBox.propTypes = {
+  message: PropTypes.string
+}
+
+TextBox.defaultProps = {
+  message: null
+}
 
 export default TextBox;
