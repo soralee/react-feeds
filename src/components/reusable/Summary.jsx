@@ -1,21 +1,22 @@
 import React from 'react'
 import { Feed } from 'semantic-ui-react'
-import styled from 'styled-components'
+import Styled from 'styled-components'
 import moment from "moment"
+import PropTypes from "prop-types"
 
-const OwnerName = styled.div`
+const OwnerName = Styled.div`
   color: #00B68F;
   font-weight: bold;
   font-size: 16px;
 `;
 
-const Date = styled.div`
+const Date = Styled.div`
   color: #999;
   font-size: 14px;
   margin-left: 10px;
 `;
 
-const Privacy = styled.div`
+const Privacy = Styled.div`
   color: #606770;
   font-size: 12px;
 `;
@@ -30,5 +31,17 @@ const Summary = ({ created_at, name, privacy }) => (
     {privacy && <Privacy>{privacy}</Privacy>}
   </>
 )
+
+Summary.propTypes = {
+  created_at: PropTypes.number,
+  name: PropTypes.string,
+  privacy: PropTypes.string
+};
+
+Summary.defaultProps = {
+  created_at: null,
+  name: null,
+  privacy: null
+};
 
 export default Summary;

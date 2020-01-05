@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { Segment, Feed, Image } from 'semantic-ui-react'
-import styled from 'styled-components'
+import Styled from 'styled-components'
 import InfiniteScroll from 'react-infinite-scroller'
 import axios from 'axios'
 
@@ -23,26 +23,26 @@ import Advertisement from "./Advertisement"
 
 const ADVERTISEMENT_SHOW_NUMBER = 5
 
-const AppContainer = styled.div`
+const AppContainer = Styled.div`
   background-color: rgb(247, 247, 250);
   font-family: 'Roboto', Helvetica, sans-serif;
   color: #4A4A4A;
   width: 100%;
 `;
 
-const FeedsContainer = styled.div`
+const FeedsContainer = Styled.div`
   padding: 50px;
   width: 70%;
 `;
 
-const LoaderContainer = styled.div`
+const LoaderContainer = Styled.div`
   width: 100%;
   display: flex;
   padding: 50px;
   margin-left: 40px;
 `;
 
-const Loader = styled(Segment)`
+const Loader = Styled(Segment)`
   &&& {
     border: 1px solid rgb(232, 232, 236);
     padding: 30px;

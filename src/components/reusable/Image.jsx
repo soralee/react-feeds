@@ -1,14 +1,16 @@
 import React from 'react'
 import { Image, Modal } from 'semantic-ui-react'
-import styled from 'styled-components'
+import Styled from 'styled-components'
+import PropTypes from 'prop-types'
 
 import map from 'lodash/map'
+import noop from 'lodash/noop';
 
-const ImagesContainer = styled.div`
+const ImagesContainer = Styled.div`
   width: 70%;
 `;
 
-const ImageContainer = styled.div`
+const ImageContainer = Styled.div`
   height: 100%;
   display: flex;
   justify-content: center;
@@ -51,6 +53,21 @@ const BasicImages = ({ images, message, headerChildren }) => (
   </Image.Group>
 )
 
+BasicImages.propTypes = {
+  message: PropTypes.string,
+  images: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    url: PropTypes.string
+  })),
+  headerChildren: PropTypes.element
+};
+
+BasicImages.defaultProps = {
+  message: null,
+  images: [],
+  headerChildren: null
+}
+
 const Images = ({ images, message, headerChildren, isLogCollectMode, onAddLogCollection }) => (
   isLogCollectMode ? (
     <NonClickImages images={images} onAddLogCollection={onAddLogCollection} />
@@ -58,5 +75,24 @@ const Images = ({ images, message, headerChildren, isLogCollectMode, onAddLogCol
     <BasicImages images={images} message={message} headerChildren={headerChildren} />
   )
 )
+
+Images.propTypes = {
+  message: PropTypes.string,
+  images: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    url: PropTypes.string
+  })),
+  headerChildren: PropTypes.element,
+  isLogCollectMode: PropTypes.bool,
+  onAddLogCollection: PropTypes.func
+};
+
+Images.defaultProps = {
+  message: null,
+  images: [],
+  headerChildren: null,
+  isLogCollectMode: false,
+  onAddLogCollection: noop
+};
 
 export default Images;
